@@ -10,6 +10,6 @@ public final class WizardServer extends JavaPlugin {
 
   @Override
   public void onDisable(){
-    getLogger.info("Disabled :(");
+    getLogger().info("Disabled :(");
   }
 }
