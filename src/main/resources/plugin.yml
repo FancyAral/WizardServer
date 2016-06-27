@@ -1,3 +1,7 @@
 name: WizardServer
 main: io.github.theonlygusti.wizardserver.WizardServer
 version: 0.0.1
+author: NoobDoesMC
+commands:
+  wizardserver:
+    description: Allows interaction with this plugin.
