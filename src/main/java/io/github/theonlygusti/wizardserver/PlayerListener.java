@@ -1,18 +1,16 @@
 package io.github.theonlygusti.wizardserver;
 
-/**
- * Just import fucking everything
- * because I cannot be bothered to
- * deal with errors later.
- */
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.block.Action;
 
-import org.bukkit.*;
-import org.bukkit.event.*;
-import org.bukkit.entity.*;
-import org.bukkit.inventory.*;
-import org.bukkit.event.player.*;
-import org.bukkit.event.block.*;
-import org.bukkit.material.*;
+import org.bukkit.entity.Player;
+
+import org.bukkit.Material;
+import org.bukkit.Bukkit;
+
 import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 
 public class PlayerListener implements Listener {
@@ -28,27 +26,14 @@ public class PlayerListener implements Listener {
 
     // check whether left or right click
     if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
-      switch (player.getItemInHand().getType()) {
-        case GOLD_RECORD:
-        case GREEN_RECORD:
-        case RECORD_3:
-        case RECORD_4:
-        case RECORD_5:
-        case RECORD_6:
-        case RECORD_7:
-        case RECORD_8:
-        case RECORD_9:
-          player.sendMessage("§cBind a spell to this spell wand by right-clicking.");
-          break;
-        case MONSTER_EGG:
-          net.minecraft.server.v1_10_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(player.getItemInHand());
-          net.minecraft.server.v1_10_R1.NBTTagCompound tag = nmsItem.getTag();
-          String eggType = tag.getCompound("EntityTag").getString("id");
-          player.sendMessage("You §bleft-clicked §ra §6" + eggType + " §rspawn egg.");
-          Bukkit.getServer().getLogger().info(player.getDisplayName() + " just left-clicked a " + eggType + " spawn egg.");
-          break;
-        default:
-          break;
+      if (Spell.canBeAssignedTo(player.getItemInHand())) {
+        //player.openInventory(InventoryViews.spellMenu(player));
+      } else {
+        net.minecraft.server.v1_10_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(player.getItemInHand());
+        net.minecraft.server.v1_10_R1.NBTTagCompound tag = nmsItem.getTag();
+        String eggType = tag.getCompound("EntityTag").getString("id");
+        player.sendMessage("You §bleft-clicked §ra §6" + eggType + " §rspawn egg.");
+        Bukkit.getServer().getLogger().info(player.getDisplayName() + " just left-clicked a " + eggType + " spawn egg.");
       }
     } else if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
       switch (player.getItemInHand().getType()) {
@@ -62,7 +47,7 @@ public class PlayerListener implements Listener {
         case RECORD_8:
         case RECORD_9:
         case MONSTER_EGG:
-          player.openInventory(InventoryViews.spellMenu(player));
+
           break;
         default:
           break;
