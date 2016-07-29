@@ -1,2 +1,0 @@
-cmd: mvn clean install && cp -f /Users/George/Documents/Projects/MMORPG/dev/plugins/WizardServer/target/WizardServer-0.0.1-SNAPSHOT-jar-with-dependencies.jar /Users/George/Documents/Projects/MMORPG/server/plugins/WizardServer-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-sh: true
